@@ -1,0 +1,121 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+enum UserRole {
+  ADMIN
+  PANTRY_STAFF
+  DELIVERY_STAFF
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum MealType {
+  MORNING
+  EVENING
+  NIGHT
+}
+
+enum MealStatus {
+  PENDING
+  PREPARING
+  READY
+  DELIVERING
+  DELIVERED
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  password      String
+  name          String
+  role          UserRole
+  contactNumber String
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relations
+  pantryStaff   PantryStaff?
+  deliveryStaff DeliveryStaff?
+}
+
+model Patient {
+  id               String   @id @default(cuid())
+  name             String
+  age              Int
+  gender           Gender
+  roomNumber       String
+  bedNumber        String
+  floorNumber      String
+  contactNumber    String
+  emergencyContact String
+  diseases         String[]
+  allergies        String[]
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  // Relations
+  dietCharts DietChart[]
+  mealBoxes  MealBox[]
+}
+
+model DietChart {
+  id        String   @id @default(cuid())
+  patientId String
+  mealType  MealType
+  items     String[]
+  instructions String[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  patient   Patient    @relation(fields: [patientId], references: [id])
+  mealBoxes MealBox[]
+}
+
+model PantryStaff {
+  id     String @id @default(cuid())
+  userId String @unique
+  location String
+
+  // Relations
+  user      User      @relation(fields: [userId], references: [id])
+  mealBoxes MealBox[]
+}
+
+model DeliveryStaff {
+  id     String @id @default(cuid())
+  userId String @unique
+
+  // Relations
+  user      User      @relation(fields: [userId], references: [id])
+  mealBoxes MealBox[]
+}
+
+model MealBox {
+  id             String     @id @default(cuid())
+  patientId      String
+  dietChartId    String
+  pantryStaffId  String?
+  deliveryStaffId String?
+  status         MealStatus @default(PENDING)
+  deliveryNotes  String?
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  // Relations
+  patient       Patient        @relation(fields: [patientId], references: [id])
+  dietChart     DietChart      @relation(fields: [dietChartId], references: [id])
+  pantryStaff   PantryStaff?   @relation(fields: [pantryStaffId], references: [id])
+  deliveryStaff DeliveryStaff? @relation(fields: [deliveryStaffId], references: [id])
+}
