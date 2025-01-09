@@ -58,9 +58,9 @@ export async function DELETE(
       where: { id: params.id },
     });
     return NextResponse.json({ message: "Patient deleted successfully" });
-  } catch (error) {
+  } catch (error: any) {
     return NextResponse.json(
-      { error: "Error deleting patient" },
+      { error: error.message },
       { status: 500 }
     );
   }

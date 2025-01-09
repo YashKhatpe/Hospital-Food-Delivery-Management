@@ -49,9 +49,9 @@ export async function POST(request: Request) {
       },
     });
     return NextResponse.json(dietChart);
-  } catch (error) {
+  } catch (error: any) {
     return NextResponse.json(
-      { error: "Error creating diet chart" },
+      { error: `Error creating chart, ${error.message} `},
       { status: 500 }
     );
   }

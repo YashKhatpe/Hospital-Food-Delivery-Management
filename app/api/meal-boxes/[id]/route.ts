@@ -14,9 +14,9 @@ export async function GET(
 
     const mealBoxes = await getMealBoxesByPantryStaff(params.id);
     return NextResponse.json(mealBoxes);
-  } catch (error) {
+  } catch (error: any) {
     return NextResponse.json(
-      { error: "Error fetching meal box" },
+      { error: `Error fetching meal box, ${error.message} ` },
       { status: 500 }
     );
   }
@@ -53,15 +53,6 @@ export async function PUT(
 }
 
 
-// export async function getUserId() {
-//   try {
-//     const user = await prisma.user.findUnique({
-
-//     })
-//   } catch (error: any) {
-    
-//   }
-// }
 
 
 export async function getMealBoxesByPantryStaff(pantryStaffId: string) {

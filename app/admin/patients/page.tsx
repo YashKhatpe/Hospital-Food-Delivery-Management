@@ -45,10 +45,10 @@ export default function PatientsPage() {
             variant: "destructive",
           });
         }
-      } catch (error) {
+      } catch (error: any) {
         toast({
           title: "Error",
-          description: "Something went wrong.",
+          description: error.message,
           variant: "destructive",
         });
       } finally {

@@ -300,6 +300,7 @@ export default function PantryStaffDashboard() {
 
   const handleEditStaff = (staffId: string) => {
     // Implement edit logic
+    console.log(staffId);
   };
 
   const handleGenerateMealBoxes = async () => {

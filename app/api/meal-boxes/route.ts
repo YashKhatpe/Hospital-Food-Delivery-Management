@@ -67,8 +67,8 @@ export async function PUT(
       });
   
       return NextResponse.json({ message: 'Meal box deleted successfully.' }, { status: 200 });
-    } catch (error) {
-      return NextResponse.json({ error: 'Failed to delete meal box.' }, { status: 500 });
+    } catch (error: any) {
+      return NextResponse.json({ error: `Failed to delete meal box.${error.message}` }, { status: 500 });
     }
   }
   

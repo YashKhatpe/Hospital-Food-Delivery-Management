@@ -52,9 +52,9 @@ export async function POST(req: Request) {
         role: user.role,
       },
     });
-  } catch (error) {
+  } catch (error: any) {
     return NextResponse.json(
-      { error: "Error creating user" },
+      { error: error.message },
       { status: 500 }
     );
   }

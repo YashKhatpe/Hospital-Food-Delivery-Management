@@ -15,11 +15,19 @@ export default function MealPreparation() {
 
 
   // Fetching delivery personnels
-  useEffect(() => {
-    fetch("/api/delivery-personnel")
+ // Fetching delivery personnels
+useEffect(() => {
+  setLoading(true); // Set loading to true before the fetch begins
+  fetch("/api/delivery-personnel")
     .then((res) => res.json())
-    .then((data) => setDeliveryPersonnelList(data));
-  }, []);
+    .then((data) => {
+      setDeliveryPersonnelList(data);
+      setLoading(false); // Set loading to false after data is fetched
+    })
+    .catch(() => {
+      setLoading(false); // Set loading to false in case of an error
+    });
+}, []);
   // Fetch meal boxes assigned to the logged-in pantry staff
   useEffect(() => {
     if (userString) {
@@ -44,7 +52,7 @@ export default function MealPreparation() {
     } else {
       console.log("User not found in local storage.");
     }
-  }, []);
+  }, [userString]);
 
 
   const assignDeliveryPersonnel = async (mealBoxId: string, deliveryPersonnelId: string, selectedDeliveryPersonnelName: string) => {
@@ -139,40 +147,7 @@ export default function MealPreparation() {
       },
     },
   ];
-  // const columns: ColumnDef<MealBox>[] = [
-  //   {
-  //     accessorKey: "id",
-  //     header: "Meal ID",
-  //     cell: ({ row }) => row.original.id,
-  //   },
-  //   {
-  //     accessorKey: "patientName",
-  //     header: "Patient Name",
-  //     cell: ({ row }) => row.original.patient.name,
-  //   },
-  //   {
-  //     accessorKey: "status",
-  //     header: "Status",
-  //   },
-  //   {
-  //     accessorKey: "deliveryPersonnel",
-  //     header: "Delivery Personnel",
-  //     cell: ({ row }) => {
-  //       const deliveryStaffName = row.original.deliveryStaff?.user?.name || "Unassigned";
-  //       const isReady = row.original.status === "DELIVERING" ; // Change to READY
-  
-  //       return (
-  //         <div className="flex items-center space-x-2">
-  //           <span>{deliveryStaffName}</span>
-  //           {isReady && deliveryStaffName === "Unassigned" && (
-  //             <AssignMealModal mealBoxId={row.original.id} />
-  //           )}
-  //         </div>
-  //       );
-  //     },
-  //   },
-  // ];
-  
+ 
 
   
   

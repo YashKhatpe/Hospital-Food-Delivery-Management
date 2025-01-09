@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -16,9 +16,16 @@ export default function LoginPage() {
   const router = useRouter();
   const { login } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm<LoginFormData>();
 
-  const onSubmit = async (data: any) => {
+  type LoginFormData = {
+    email: string;
+    password: string;
+  };
+
+  
+  
+  const onSubmit: SubmitHandler<LoginFormData> = async (data) => {
     setIsLoading(true);
     try {
       await login(data.email, data.password);
@@ -67,7 +74,7 @@ export default function LoginPage() {
               {isLoading ? "Signing in..." : "Sign in"}
             </Button>
             <div className="text-center text-sm">
-              Don't have an account?{" "}
+              Don't have an account?
               <Link href="/register" className="text-primary hover:underline">
                 Create one
               </Link>

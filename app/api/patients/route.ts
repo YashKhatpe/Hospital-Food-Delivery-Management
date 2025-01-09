@@ -8,9 +8,9 @@ export async function GET() {
       orderBy: { createdAt: "desc" },
     });
     return NextResponse.json(patients);
-  } catch (error) {
+  } catch (error: any) {
     return NextResponse.json(
-      { error: "Error fetching patients" },
+      { error: error.message },
       { status: 500 }
     );
   }

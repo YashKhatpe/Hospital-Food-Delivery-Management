@@ -17,14 +17,21 @@ import {
 import { toast } from "@/hooks/use-toast";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Hospital } from "lucide-react";
+import { UserRole } from "@/types/types";
+interface RegisterFormData {
+  email: string;
+  name: string;
+  password: string;
+  contactNumber: string;
+  role: "ADMIN" | "PANTRY_STAFF" | "DELIVERY_STAFF";
+}
 
 export default function RegisterPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  const { register, handleSubmit, setValue, watch } = useForm();
-  const selectedRole = watch("role");
+  const { register, handleSubmit, setValue } = useForm<RegisterFormData>();
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: RegisterFormData) => {
     setIsLoading(true);
     try {
       const response = await fetch("/api/register", {
@@ -101,7 +108,7 @@ export default function RegisterPage() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="role">Role</Label>
-              <Select onValueChange={(value) => setValue("role", value)}>
+              <Select onValueChange={(value: UserRole) => setValue("role", value)}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select role" />
                 </SelectTrigger>
