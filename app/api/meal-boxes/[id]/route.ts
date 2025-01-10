@@ -1,23 +1,27 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-
 
 // Get a specific meal box
 export async function GET(
-  request: Request,
+  request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   try {
-    if(!params.id) {
-      return NextResponse.json({error: "Missing ID in the url"}, {status: 400});
+    const { id } = params;
+
+    if (!id) {
+      return NextResponse.json(
+        { error: "Missing ID in the URL" },
+        { status: 400 }
+      );
     }
 
-    const mealBoxes = await getMealBoxesByPantryStaff(params.id);
-    return NextResponse.json(mealBoxes);
-  } catch (error)  {
-    console.error(error);
+    const mealBoxes = await getMealBoxesByPantryStaff(id);
+    return NextResponse.json(mealBoxes, { status: 200 });
+  } catch (error) {
+    console.error("Error fetching meal box:", error);
     return NextResponse.json(
-      { error: `Error fetching meal box ` },
+      { error: "Error fetching meal box" },
       { status: 500 }
     );
   }
@@ -25,13 +29,23 @@ export async function GET(
 
 // Update a meal box
 export async function PUT(
-  request: Request,
+  request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   try {
+    const { id } = params;
+
+    if (!id) {
+      return NextResponse.json(
+        { error: "Missing ID in the URL" },
+        { status: 400 }
+      );
+    }
+
     const json = await request.json();
+
     const mealBox = await prisma.mealBox.update({
-      where: { id: params.id },
+      where: { id },
       data: json,
       include: {
         patient: {
@@ -44,9 +58,10 @@ export async function PUT(
         dietChart: true,
       },
     });
-    return NextResponse.json(mealBox);
+
+    return NextResponse.json(mealBox, { status: 200 });
   } catch (error) {
-    console.error(error);
+    console.error("Error updating meal box:", error);
     return NextResponse.json(
       { error: "Error updating meal box" },
       { status: 500 }
@@ -54,17 +69,16 @@ export async function PUT(
   }
 }
 
-
-
-
+// Helper function: Get meal boxes by pantry staff ID
 export async function getMealBoxesByPantryStaff(pantryStaffId: string) {
   try {
     const mealBoxes = await prisma.mealBox.findMany({
       where: {
-        pantryStaffId: pantryStaffId,
+        pantryStaffId,
         status: "PREPARING",
       },
     });
+
     return mealBoxes;
   } catch (error) {
     console.error("Error fetching meal boxes:", error);

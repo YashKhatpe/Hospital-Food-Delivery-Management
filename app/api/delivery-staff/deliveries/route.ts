@@ -1,18 +1,17 @@
-// app/api/delivery-staff/deliveries/route.ts
-import { NextResponse } from "next/server";
-import {prisma} from "@/lib/prisma";
+import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
 
-
-
-export async function GET(res: NextResponse, { params }: { params: { id: string } }) {
+export async function GET(req: NextRequest) {
   try {
-    const id = params;
-    
-    if (id) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    // Extract the user ID from the query parameters
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get("id");
+
+    if (!id) {
+      return NextResponse.json({ error: "ID parameter is required." }, { status: 400 });
     }
 
-    // Get the delivery staff id from the user id
+    // Get the delivery staff record from the database
     const deliveryStaff = await prisma.deliveryStaff.findFirst({
       where: {
         userId: id,
@@ -20,7 +19,7 @@ export async function GET(res: NextResponse, { params }: { params: { id: string 
     });
 
     if (!deliveryStaff) {
-      return NextResponse.json({ error: "Delivery staff not found" }, { status: 404 });
+      return NextResponse.json({ error: "Delivery staff not found." }, { status: 404 });
     }
 
     // Get all meal boxes assigned to this delivery staff
@@ -56,9 +55,9 @@ export async function GET(res: NextResponse, { params }: { params: { id: string 
 
     return NextResponse.json(deliveries);
   } catch (error) {
-    console.error(error);
+    console.error("Error fetching deliveries:", error);
     return NextResponse.json(
-      { error: `Error fetching deliveries `},
+      { error: "Internal server error." },
       { status: 500 }
     );
   }
