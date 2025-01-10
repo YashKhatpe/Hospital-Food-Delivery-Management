@@ -1,14 +1,14 @@
+import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-export async function GET({ params }: { params: { id: string } }) {
-  const { id } = params;
+export async function GET(req: NextRequest) {
+  // Extract the 'id' parameter from the URL
+  const { searchParams } = new URL(req.url);
+  const id = searchParams.get("id");
 
   // Check if ID is provided
   if (!id) {
-    return new Response(
-      JSON.stringify({ error: "ID parameter is required." }),
-      { status: 400 }
-    );
+    return NextResponse.json({ error: "ID parameter is required." }, { status: 400 });
   }
 
   try {
@@ -22,10 +22,7 @@ export async function GET({ params }: { params: { id: string } }) {
 
     // If no personnel found, return 404
     if (!personnel) {
-      return new Response(
-        JSON.stringify({ error: "Delivery personnel not found." }),
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Delivery personnel not found." }, { status: 404 });
     }
 
     // Format the response data
@@ -35,12 +32,9 @@ export async function GET({ params }: { params: { id: string } }) {
     };
 
     // Return the formatted data with status 200
-    return new Response(JSON.stringify(formattedData), { status: 200 });
+    return NextResponse.json(formattedData, { status: 200 });
   } catch (error) {
     console.error("Error fetching delivery personnel:", error);
-    return new Response(
-      JSON.stringify({ error: "Internal server error." }),
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error." }, { status: 500 });
   }
 }
