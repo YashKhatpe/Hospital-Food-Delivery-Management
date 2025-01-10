@@ -14,6 +14,7 @@ export async function GET() {
       });
       return NextResponse.json(mealBoxes, { status: 200 });
     } catch (error) {
+      console.error(error);
       return NextResponse.json({ error: 'Failed to fetch meal boxes.' }, { status: 500 });
     }
   }
@@ -29,6 +30,7 @@ export async function POST(req: Request) {
   
       return NextResponse.json(mealBox, { status: 201 });
     } catch (error) {
+      console.error(error);
       return NextResponse.json({ error: 'Failed to create meal box.' }, { status: 500 });
     }
   }
@@ -48,6 +50,7 @@ export async function PUT(
   
       return NextResponse.json(mealBox, { status: 200 });
     } catch (error) {
+      console.error(error);
       return NextResponse.json({ error: 'Failed to update meal box.' }, { status: 500 });
     }
   }
@@ -67,8 +70,9 @@ export async function PUT(
       });
   
       return NextResponse.json({ message: 'Meal box deleted successfully.' }, { status: 200 });
-    } catch (error: any) {
-      return NextResponse.json({ error: `Failed to delete meal box.${error.message}` }, { status: 500 });
+    } catch (error) {
+      console.error(error);
+      return NextResponse.json({ error: `Failed to delete meal box.` }, { status: 500 });
     }
   }
   

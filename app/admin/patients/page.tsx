@@ -45,10 +45,11 @@ export default function PatientsPage() {
             variant: "destructive",
           });
         }
-      } catch (error: any) {
+      } catch (error) {
+        console.error(error)
         toast({
           title: "Error",
-          description: error.message,
+          description: "Error fetching patients",
           variant: "destructive",
         });
       } finally {
@@ -97,9 +98,10 @@ export default function PatientsPage() {
         });
       }
     } catch (error) {
+      console.error(error)
       toast({
         title: "Error",
-        description: "Something went wrong.",
+        description: "FAiled to add patient",
         variant: "destructive",
       });
     }

@@ -22,9 +22,10 @@ export async function POST(
     });
 
     return NextResponse.json(updatedMealBox);
-  } catch (error: any) {
+  } catch (error) {
+    console.error(error);
     return NextResponse.json(
-      { error: `Error completing delivery, ${error.message}`  },
+      { error: `Error completing delivery`  },
       { status: 500 }
     );
   }

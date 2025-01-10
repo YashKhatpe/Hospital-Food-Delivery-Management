@@ -31,13 +31,13 @@ export async function POST(req: Request) {
     });
 
     if(user.role == "DELIVERY_STAFF") {
-      const delStaff = await prisma.deliveryStaff.create({
+     await prisma.deliveryStaff.create({
         data: {
           userId: user.id,
         }
       })
     } else if(user.role == "PANTRY_STAFF") {
-      const pantStaff = await prisma.pantryStaff.create({
+      await prisma.pantryStaff.create({
         data: {
           userId: user.id,
           location: ""
@@ -52,9 +52,10 @@ export async function POST(req: Request) {
         role: user.role,
       },
     });
-  } catch (error: any) {
+  } catch (error) {
+    console.error(error);
     return NextResponse.json(
-      { error: error.message },
+      { error: "Error in registeration" },
       { status: 500 }
     );
   }

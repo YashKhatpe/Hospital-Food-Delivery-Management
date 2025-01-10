@@ -55,9 +55,10 @@ export async function GET(res: NextResponse, { params }: { params: { id: string 
     });
 
     return NextResponse.json(deliveries);
-  } catch (error: any) {
+  } catch (error) {
+    console.error(error);
     return NextResponse.json(
-      { error: `Error fetching deliveries, ${error.message} `},
+      { error: `Error fetching deliveries `},
       { status: 500 }
     );
   }

@@ -121,7 +121,7 @@ export default function PantryStaffDashboard() {
     }
   };
 
-  const unassignedTaskColumns: ColumnDef<UnassignedMealBox, any>[] = [
+  const unassignedTaskColumns: ColumnDef<UnassignedMealBox>[] = [
     {
       id: "select",
       header: ({ table }) => (
@@ -211,7 +211,7 @@ export default function PantryStaffDashboard() {
     return colors[status] || "bg-gray-200 text-gray-800";
   };
 
-  const taskColumns: ColumnDef<MealBox, any>[] = [
+  const taskColumns: ColumnDef<MealBox>[] = [
     {
       header: "Patient",
       accessorKey: "patient.name",
@@ -244,7 +244,7 @@ export default function PantryStaffDashboard() {
     },
   ];
 
-  const columns: ColumnDef<PantryStaff, any>[] = [
+  const columns: ColumnDef<PantryStaff>[] = [
     {
       header: "Name",
       accessorKey: "user.name",

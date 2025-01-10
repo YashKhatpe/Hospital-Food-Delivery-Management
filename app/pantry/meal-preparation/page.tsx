@@ -68,8 +68,9 @@ useEffect(() => {
         setAssignedPerson(selectedDeliveryPersonnelName);
       }
       
-    } catch (error: any) {
-      console.log("Error while assigning delivery personnel", error.message);
+    } catch (error) {
+      console.error(error);
+      console.log("Error while assigning delivery personnel");
     }
   };
 
@@ -86,7 +87,7 @@ useEffect(() => {
     );
   };
 
-  const columns: ColumnDef<any>[] = [
+  const columns: ColumnDef<MealBox>[] = [
     {
       accessorKey: "id",
       header: "Meal ID",

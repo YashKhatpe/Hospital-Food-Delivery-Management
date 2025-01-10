@@ -59,9 +59,10 @@ export async function POST(req: Request) {
         id: user.id
       },
     });
-  } catch (error: any) {
+  } catch (error) {
+    console.error(error);
     return NextResponse.json(
-      { error: `Authentication failed, ${error.message} `},
+      { error: `Authentication failed`},
       { status: 500 }
     );
   }

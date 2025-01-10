@@ -19,9 +19,10 @@ export async function POST(request: Request) {
     );
 
     return NextResponse.json(updates);
-  } catch (error: any) {
+  } catch (error) {
+    console.error(error);
     return NextResponse.json(
-      { error: `Error assigning meal boxes, ${error.message}` },
+      { error: `Error assigning meal boxes, ` },
       { status: 500 }
     );
   }
@@ -40,8 +41,8 @@ export async function PATCH(request: Request) {
       return new Response(JSON.stringify({ success: true, updatedMealBox }), {
         status: 200,
       });
-    } catch (error: any) {
-      return new Response(JSON.stringify({ error: error.message }), {
+    } catch (error) {
+      return new Response(JSON.stringify({ error: error }), {
         status: 500,
       });
     }

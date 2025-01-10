@@ -39,10 +39,11 @@ export async function GET() {
       },
     });
     return NextResponse.json(pantryStaff);
-  } catch (error: any) {
+  } catch (error) {
+    console.error(error);
     return NextResponse.json(
       
-      { error: `Error fetching pantry staff, ${error.message} `},
+      { error: `Error fetching pantry staff `},
       { status: 500 }
     );
   }
@@ -84,9 +85,10 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json(result);
-  } catch (error:any) {
+  } catch (error) {
+    console.error(error);
     return NextResponse.json(
-      { error: error.message },
+      { error: "Error in pantry" },
       { status: 500 }
     );
   }

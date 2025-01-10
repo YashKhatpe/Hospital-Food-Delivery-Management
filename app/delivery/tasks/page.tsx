@@ -69,7 +69,7 @@ export default function DeliveryStaffTasks() {
     setIsLoading(false);
   };
 
-  const columns: ColumnDef<MealDelivery, any>[] = [
+  const columns: ColumnDef<MealDelivery>[] = [
     {
       header: "Patient",
       accessorKey: "patient.name",

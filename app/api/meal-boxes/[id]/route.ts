@@ -14,9 +14,10 @@ export async function GET(
 
     const mealBoxes = await getMealBoxesByPantryStaff(params.id);
     return NextResponse.json(mealBoxes);
-  } catch (error: any) {
+  } catch (error)  {
+    console.error(error);
     return NextResponse.json(
-      { error: `Error fetching meal box, ${error.message} ` },
+      { error: `Error fetching meal box ` },
       { status: 500 }
     );
   }
@@ -45,6 +46,7 @@ export async function PUT(
     });
     return NextResponse.json(mealBox);
   } catch (error) {
+    console.error(error);
     return NextResponse.json(
       { error: "Error updating meal box" },
       { status: 500 }

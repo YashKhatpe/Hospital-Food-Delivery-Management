@@ -8,9 +8,10 @@ export async function GET() {
       orderBy: { createdAt: "desc" },
     });
     return NextResponse.json(patients);
-  } catch (error: any) {
+  } catch (error) {
+    console.error(error);
     return NextResponse.json(
-      { error: error.message },
+      { error: "Errror in Patients" },
       { status: 500 }
     );
   }
@@ -25,6 +26,7 @@ export async function POST(request: Request) {
     });
     return NextResponse.json(patient);
   } catch (error) {
+    console.error(error);
     return NextResponse.json(
       { error: "Error creating patient" },
       { status: 500 }

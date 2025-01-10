@@ -86,7 +86,7 @@ export default function DietChartsPage() {
   };
   
   // Columns for the data table
-  const columns: ColumnDef<DietChart, any>[] = [
+  const columns: ColumnDef<DietChart>[] = [
     { 
       header: "Patient Name",
       accessorKey: "patient.name"

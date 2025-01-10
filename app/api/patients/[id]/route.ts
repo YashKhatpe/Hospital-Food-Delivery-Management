@@ -21,6 +21,7 @@ export async function GET(
 
     return NextResponse.json(patient);
   } catch (error) {
+    console.error(error);
     return NextResponse.json(
       { error: "Error fetching patient" },
       { status: 500 }
@@ -41,6 +42,7 @@ export async function PUT(
     });
     return NextResponse.json(patient);
   } catch (error) {
+    console.error(error);
     return NextResponse.json(
       { error: "Error updating patient" },
       { status: 500 }
@@ -58,9 +60,10 @@ export async function DELETE(
       where: { id: params.id },
     });
     return NextResponse.json({ message: "Patient deleted successfully" });
-  } catch (error: any) {
+  } catch (error) {
+    console.error(error);
     return NextResponse.json(
-      { error: error.message },
+      { error: "Error in deleteion" },
       { status: 500 }
     );
   }

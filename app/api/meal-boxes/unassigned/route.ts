@@ -27,9 +27,10 @@ export async function GET() {
     });
     
     return NextResponse.json(unassignedMealBoxes);
-  } catch (error: any) {
+  } catch (error) {
+    console.error(error);
     return NextResponse.json(
-      { error: `Error fetching unassigned meal boxes, ${error.message} `},
+      { error: `Error fetching unassigned meal boxes `},
       { status: 500 }
     );
   }
