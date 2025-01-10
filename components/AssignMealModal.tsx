@@ -29,7 +29,7 @@ export const AssignMealModal: React.FC<AssignMealModalProps> = ({
     if (!selectedDeliveryPersonnel) return;
   
     try {
-      const res = await fetch(`/api/delivery-personnel/${selectedDeliveryPersonnel}`);
+      const res = await fetch(`/api/delivery-personnel/?id=${selectedDeliveryPersonnel}`);
       if (!res.ok) {
         throw new Error("Failed to fetch delivery personnel details.");
       }

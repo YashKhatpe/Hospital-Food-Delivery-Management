@@ -46,8 +46,13 @@ export default function DeliveryStaffTasks() {
 
   const fetchDeliveries = async () => {
     try {
-      const response = await axios.get("/api/delivery-staff/deliveries");
-      setDeliveries(response.data);
+      const userString = localStorage.getItem('user');
+      if(userString){
+        const userId = JSON.parse(userString);
+        
+        const response = await axios.get(`/api/delivery-staff/deliveries?id=${userId.id}`);
+        setDeliveries(response.data);
+      }
     } catch (error) {
       console.error("Error fetching deliveries:", error);
     }
@@ -57,6 +62,7 @@ export default function DeliveryStaffTasks() {
     setIsLoading(true);
     try {
       await axios.post(`/api/meal-boxes/${mealBoxId}/complete`, {
+        id: mealBoxId,
         deliveryNotes: notes,
       });
       fetchDeliveries();

@@ -7,10 +7,9 @@ export async function POST(
   req: NextRequest,
 ) {
   try {
-    const { searchParams } = new URL(req.url);
-    const id = searchParams.get("id");
     
-    const { deliveryNotes } = await req.json();
+    
+    const { id, deliveryNotes } = await req.json();
     if (!id) {
       return NextResponse.json({ error: "ID parameter is required." }, { status: 400 });
     }

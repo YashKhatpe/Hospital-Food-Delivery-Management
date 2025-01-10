@@ -61,7 +61,7 @@ useEffect(() => {
       const res = await fetch(`/api/meal-boxes/${mealBoxId}/assign-delivery` , {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ deliveryPersonnelId })
+        body: JSON.stringify({ id: mealBoxId ,deliveryStaffId: deliveryPersonnelId })
       })
       if(res.ok){
         console.log(`Assigning delivery personnel ${deliveryPersonnelId} to meal box ${mealBoxId}`);
