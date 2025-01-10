@@ -3,11 +3,12 @@ import { prisma } from "@/lib/prisma";
 
 // Get a specific meal box
 export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
+  request: NextRequest
 ) {
   try {
-    const { id } = params;
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get("id");
+    
 
     if (!id) {
       return NextResponse.json(
@@ -29,11 +30,12 @@ export async function GET(
 
 // Update a meal box
 export async function PUT(
-  request: NextRequest,
-  { params }: { params: { id: string } }
+  request: NextRequest
 ) {
   try {
-    const { id } = params;
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get("id");
+    
 
     if (!id) {
       return NextResponse.json(

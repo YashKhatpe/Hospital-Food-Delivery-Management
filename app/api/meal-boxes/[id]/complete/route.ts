@@ -2,20 +2,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import {prisma} from "@/lib/prisma";
 
-interface RouteParams {
-  params: {
-    id: string;
-  };
-}
 
 export async function POST(
-  request: NextRequest,
-  { params }: RouteParams
+  req: NextRequest,
 ) {
   try {
-    const { id } = params;
-    const { deliveryNotes } = await request.json();
-
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get("id");
+    
+    const { deliveryNotes } = await req.json();
+    if (!id) {
+      return NextResponse.json({ error: "ID parameter is required." }, { status: 400 });
+    }
     const updatedMealBox = await prisma.mealBox.update({
       where: {
         id,
