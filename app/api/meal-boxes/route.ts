@@ -39,12 +39,17 @@ export async function POST(req: Request) {
 // PUT: Update a meal box by ID
 export async function PUT(
     req: Request,
-    { params }: { params: { id: string } }
+    
 ) {
     try {
+      const { searchParams } = new URL(req.url);
+      const id = searchParams.get("id");
+      if (!id) {
+        return NextResponse.json({ error: "ID parameter is required." }, { status: 400 });
+      }
       const body = await req.json();
       const mealBox = await prisma.mealBox.update({
-        where: { id: params.id },
+        where: { id },
         data: body,
       });
   

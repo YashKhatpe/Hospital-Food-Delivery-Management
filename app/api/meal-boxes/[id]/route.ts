@@ -72,7 +72,7 @@ export async function PUT(
 }
 
 // Helper function: Get meal boxes by pantry staff ID
-export async function getMealBoxesByPantryStaff(pantryStaffId: string) {
+async function getMealBoxesByPantryStaff(pantryStaffId: string) {
   try {
     const mealBoxes = await prisma.mealBox.findMany({
       where: {
