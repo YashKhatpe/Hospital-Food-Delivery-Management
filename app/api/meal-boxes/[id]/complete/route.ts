@@ -1,15 +1,20 @@
+// app/api/meal-boxes/[id]/complete/route.ts
+import { NextRequest, NextResponse } from "next/server";
+import {prisma} from "@/lib/prisma";
 
-// // app/api/meal-boxes/[id]/complete/route.ts
-import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+interface RouteParams {
+  params: {
+    id: string;
+  };
+}
 
 export async function POST(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  { params }: RouteParams
 ) {
   try {
-    const { deliveryNotes } = await request.json();
     const { id } = params;
+    const { deliveryNotes } = await request.json();
 
     const updatedMealBox = await prisma.mealBox.update({
       where: {
@@ -25,7 +30,7 @@ export async function POST(
   } catch (error) {
     console.error(error);
     return NextResponse.json(
-      { error: `Error completing delivery`  },
+      { error: "Error completing delivery" },
       { status: 500 }
     );
   }
