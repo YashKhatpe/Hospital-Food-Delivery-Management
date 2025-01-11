@@ -303,25 +303,30 @@ export default function PantryStaffDashboard() {
     console.log(staffId);
   };
 
-  const handleGenerateMealBoxes = async () => {
+  // const handleGenerateMealBoxes = async () => {
+  // };
+  
+  const modalOpenAndGenrateBoxes = async () => {
+    setIsAssignTaskDialogOpen(true);
     try {
       await axios.post("/api/meal-boxes/generate");
       // Refresh the unassigned meal boxes list
       fetchUnassignedMealBoxes();
-    } catch (error) {
+    } catch (error) {  
       console.error("Error generating meal boxes:", error);
     }
-  };
+
+  }
 
   return (
     <div className="p-8">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Pantry Staff Management</h1>
         <div className="space-x-4">
-        <Button onClick={handleGenerateMealBoxes}>
+        {/* <Button onClick={handleGenerateMealBoxes}>
             Generate Meal Boxes
-          </Button>
-          <Button onClick={() => setIsAssignTaskDialogOpen(true)}>
+          </Button> */}
+          <Button onClick={modalOpenAndGenrateBoxes}>
             Assign Tasks
           </Button>
           <Button onClick={() => setIsAddDialogOpen(true)}>

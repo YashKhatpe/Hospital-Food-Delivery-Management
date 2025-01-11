@@ -16,7 +16,7 @@ export async function GET(
         { status: 400 }
       );
     }
-
+    // console.log("PAntry Staff Id", id);
     const mealBoxes = await getMealBoxesByPantryStaff(id);
     return NextResponse.json(mealBoxes, { status: 200 });
   } catch (error) {
@@ -72,12 +72,25 @@ export async function PUT(
 }
 
 // Helper function: Get meal boxes by pantry staff ID
-async function getMealBoxesByPantryStaff(pantryStaffId: string) {
+async function getMealBoxesByPantryStaff(userId: string) {
   try {
+
+    // Find the pantry staff ID using the userId
+    const pantryStaff = await prisma.pantryStaff.findUnique({
+      where: {
+        userId,
+      },
+    });
+
+    if (!pantryStaff) {
+      throw new Error("Pantry staff not found");
+    }
+
+    // Use the pantryStaffId to fetch meal boxes
     const mealBoxes = await prisma.mealBox.findMany({
       where: {
-        pantryStaffId,
-        status: "PREPARING",
+        pantryStaffId: pantryStaff.id, // Match the pantryStaff ID
+        // status: "PREPARING",
       },
     });
 
@@ -87,3 +100,4 @@ async function getMealBoxesByPantryStaff(pantryStaffId: string) {
     throw new Error("Failed to fetch meal boxes");
   }
 }
+

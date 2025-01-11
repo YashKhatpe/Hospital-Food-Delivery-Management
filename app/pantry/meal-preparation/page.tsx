@@ -13,8 +13,6 @@ export default function MealPreparation() {
 
   const userString = localStorage.getItem("user");
 
-
-  // Fetching delivery personnels
  // Fetching delivery personnels
 useEffect(() => {
   setLoading(true); // Set loading to true before the fetch begins
@@ -56,7 +54,6 @@ useEffect(() => {
 
 
   const assignDeliveryPersonnel = async (mealBoxId: string, deliveryPersonnelId: string, selectedDeliveryPersonnelName: string) => {
-    // Replace with actual API call
     try {
       const res = await fetch(`/api/meal-boxes/${mealBoxId}/assign-delivery` , {
         method: "POST",

@@ -24,22 +24,32 @@ interface DashboardMetrics {
 }
 
 export default function AdminDashboard() {
-  const [metrics, setMetrics] = useState<DashboardMetrics>({
-    totalPatients: 0,
-    mealsInPreparation: 0,
-    activeDeliveries: 0,
-    pendingTasks: 0,
-  });
+  const [patientCount, setPatientCount] = useState(0);
+  const [mealBoxesCount, setMealBoxesCount] = useState(0);
+  const [activeDeliveriesCount, setActiveDeliveriesCount] = useState(0);
+  const [pendingTasksCount, setPendingTasksCount] = useState(0);
 
   useEffect(() => {
-    // TODO: Fetch real metrics from API
-    setMetrics({
-      totalPatients: 156,
-      mealsInPreparation: 45,
-      activeDeliveries: 12,
-      pendingTasks: 8,
-    });
+    fetchPatientCounts();
+    fetchMealCounts();
   }, []);
+
+  const fetchPatientCounts = async () => {
+    fetch("/api/counts/patients")
+      .then((res) => res.json())
+      .then((data) => {
+        setPatientCount(data.patientCount);
+      });
+  };
+  const fetchMealCounts = async () => {
+    fetch("/api/counts/meal")
+      .then((res) => res.json())
+      .then((data) => {
+        setMealBoxesCount(data.preparingCount);
+        setActiveDeliveriesCount(data.deliveringCount);
+        setPendingTasksCount(data.pendingCount);
+      });
+  };
 
   return (
     <div className="space-y-6">
@@ -53,11 +63,13 @@ export default function AdminDashboard() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Patients</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Total Patients
+            </CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{metrics.totalPatients}</div>
+            <div className="text-2xl font-bold">{patientCount}</div>
             <p className="text-xs text-muted-foreground">
               Active patient records
             </p>
@@ -72,7 +84,7 @@ export default function AdminDashboard() {
             <UtensilsCrossed className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{metrics.mealsInPreparation}</div>
+            <div className="text-2xl font-bold">{mealBoxesCount}</div>
             <p className="text-xs text-muted-foreground">
               Currently being prepared
             </p>
@@ -87,7 +99,7 @@ export default function AdminDashboard() {
             <Truck className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{metrics.activeDeliveries}</div>
+            <div className="text-2xl font-bold">{activeDeliveriesCount}</div>
             <p className="text-xs text-muted-foreground">In transit</p>
           </CardContent>
         </Card>
@@ -98,10 +110,8 @@ export default function AdminDashboard() {
             <AlertCircle className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{metrics.pendingTasks}</div>
-            <p className="text-xs text-muted-foreground">
-              Require attention
-            </p>
+            <div className="text-2xl font-bold">{pendingTasksCount}</div>
+            <p className="text-xs text-muted-foreground">Require attention</p>
           </CardContent>
         </Card>
       </div>
