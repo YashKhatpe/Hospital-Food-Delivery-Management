@@ -1,36 +1,103 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Hospital Food Management System
 
-## Getting Started
+A comprehensive Hospital Food Management System designed to streamline meal preparation and delivery processes. This application enables hospital staff to manage patient meals efficiently by assigning meal boxes to pantry staff and delivery personnel, tracking meal preparation statuses, and ensuring timely deliveries.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 **Project Link**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The project is live and can be accessed here: [Hospital Food Management System](https://hospital-food-delivery-management.vercel.app)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Credentials for Testing:
+To simplify testing for all roles use below email and password credentials.
 
-## Learn More
+- Email: hospital_manager@xyz.com
+- Email: hospital_pantry@xyz.com
+- Email: hospital_delivery@xyz.com
+- Password: Password@2025
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## ✨ **Features**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Admin Management**: Admin accessing all the details of the patients, their deiet charts, meal boxes and many more.
+- **Meal Box Management**: Create and assign meal boxes to pantry staff based on dietary charts.
+- **Status Tracking**: Update and monitor meal preparation statuses (e.g., `PENDING`, `PREPARING`, `READY`, `DELIVERING`, `DELIVERED`).
+- **Delivery Assignment**: Assign delivery personnel to meal boxes and track their delivery notes.
+- **Role-Based Access**: Secure and role-specific functionalities for pantry staff and delivery personnel.
+- **Responsive Design**: User-friendly interface for seamless interaction on both desktop and mobile devices.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🛠️ **Technologies Used**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### **Frontend**:
+- Next.js
+- TypeScript
+- Tailwind CSS
+
+### **Backend**:
+- Prisma ORM
+- RESTful APIs
+
+### **Database**:
+- PostgreSQL
+
+### **Deployment**:
+- Deployed on [Vercel]
+
+---
+
+## 📝 **Setup Instructions**
+
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/YashKhatpe/Hospital-Food-Delivery-Management.git
+   ```
+
+2. **Install Dependencies**
+   ```bash
+   cd Hospital-Food-Delivery-Management
+   npm install
+   ```
+
+3. **Configure Environment Variables**
+   Create a `.env` file and add the following:
+   ```env
+   DATABASE_URL=your_postgresql_database_url
+   ```
+
+4. **Run the Development Server**
+   ```bash
+   npm run dev
+   ```
+
+5. **Access the Application**
+   Open your browser and navigate to `http://localhost:3000`.
+
+---
+
+## 📜 **License**
+
+This project is licensed under the MIT License. Feel free to use and modify the code for personal or commercial purposes.
+
+---
+
+## 🙌 **Acknowledgments**
+
+- Hospital management and staff for providing the inspiration for this system.
+- Open-source libraries and tools used in this project.
+
+---
+
+## 📧 **Contact**
+
+For any inquiries or support, please contact:
+- **Email**: yashkhatpe0611@gmail.com
+- **LinkedIn**: [Yash Khatpe](https://www.linkedin.com/in/yash-khatpe)
+
+---
+
+Thank you for visiting the project! We hope this system makes hospital food management more efficient and reliable.
