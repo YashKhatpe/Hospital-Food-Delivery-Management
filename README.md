@@ -10,6 +10,16 @@ The project is live and can be accessed here: [Hospital Food Management System](
 
 ---
 
+Credentials for Testing:
+To simplify testing for all roles use below email and password credentials.
+
+Email: hospital_manager@xyz.com
+Email: hospital_pantry@xyz.com
+Email: hospital_delivery@xyz.com
+Password: Password@2025
+
+---
+
 ## ✨ **Features**
 
 - **Admin Management**: Admin accessing all the details of the patients, their deiet charts, meal boxes and many more.
