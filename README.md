@@ -36,7 +36,7 @@ The project is live and can be accessed here: [Hospital Food Management System](
 - PostgreSQL
 
 ### **Deployment**:
-- Deployed on [Vercel] (Specify your deployment platform)
+- Deployed on [Vercel]
 
 ---
 
