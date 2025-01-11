@@ -14,7 +14,7 @@ The project is live and can be accessed here: [Hospital Food Management System](
 
 - **Admin Management**: Admin accessing all the details of the patients, their deiet charts, meal boxes and many more.
 - **Meal Box Management**: Create and assign meal boxes to pantry staff based on dietary charts.
-- **Status Tracking**: Update and monitor meal preparation statuses (e.g., `PREPARING`, `READY`).
+- **Status Tracking**: Update and monitor meal preparation statuses (e.g., `PENDING`, `PREPARING`, `READY`, `DELIVERING`, `DELIVERED`).
 - **Delivery Assignment**: Assign delivery personnel to meal boxes and track their delivery notes.
 - **Role-Based Access**: Secure and role-specific functionalities for pantry staff and delivery personnel.
 - **Responsive Design**: User-friendly interface for seamless interaction on both desktop and mobile devices.
