@@ -16,12 +16,6 @@ import {
   TrendingUp,
 } from "lucide-react";
 
-interface DashboardMetrics {
-  totalPatients: number;
-  mealsInPreparation: number;
-  activeDeliveries: number;
-  pendingTasks: number;
-}
 
 export default function AdminDashboard() {
   const [patientCount, setPatientCount] = useState(0);
